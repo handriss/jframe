@@ -6,6 +6,11 @@ import java.awt.*;
 public class Display {
     private JFrame frame;
     private Canvas canvas;
+
+    public Canvas getCanvas() {
+        return canvas;
+    }
+
     private String title;
     private int width, height;
 
@@ -32,5 +37,6 @@ public class Display {
         frame.add(canvas);
         frame.pack();
     }
+
 
 }
