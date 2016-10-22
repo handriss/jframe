@@ -1,9 +1,11 @@
 package tilegame;
 
 import display.Display;
+import gfx.ImageLoader;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 public class Game implements Runnable{
     private Display display;
@@ -17,6 +19,8 @@ public class Game implements Runnable{
     private BufferStrategy bs;
     private Graphics g;
 
+    private BufferedImage testImage;
+
     public Game(String title, int width, int height){
         this.width = width;
         this.height = height;
@@ -26,6 +30,7 @@ public class Game implements Runnable{
 
     private void init(){
         display = new Display(title, width, height);
+        testImage = ImageLoader.loadImage("/textures/test.png");
     }
 
     private void tick(){
@@ -43,8 +48,7 @@ public class Game implements Runnable{
 
         g.clearRect(0, 0, width, height);
 
-
-
+        g.drawImage(testImage, 20, 20, null);
 
         bs.show();
         g.dispose();
