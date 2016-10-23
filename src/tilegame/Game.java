@@ -35,6 +35,8 @@ public class Game implements Runnable{
 
     }
 
+
+
     private void tick(){
 
     }
@@ -60,9 +62,32 @@ public class Game implements Runnable{
     public void run(){
         init();
 
+        int fps = 60;
+        double timePerTick = 1000000000 / fps;
+        double delta = 0;
+        long now;
+        long lastTime = System.nanoTime();
+        long timer = 0;
+        long ticks = 0;
+
         while(running){
-            tick();
-            render();
+            now = System.nanoTime();
+            delta += (now-lastTime) / timePerTick;
+            timer += now - lastTime;
+            lastTime = now;
+
+            if(delta >= 1){
+                tick();
+                render();
+                ticks++;
+                delta--;
+            }
+
+            if(timer >= 1000000000){
+                System.out.println("Ticks and Frames: " + ticks);
+                ticks = 0;
+                timer = 0;
+            }
         }
 
         stop();
