@@ -5,6 +5,7 @@ import gfx.Assets;
 import gfx.ImageLoader;
 import gfx.SpriteSheet;
 import states.GameState;
+import states.MenuState;
 import states.State;
 
 import java.awt.*;
@@ -24,6 +25,7 @@ public class Game implements Runnable{
     private Graphics g;
 
     private State gameState;
+    private State menuState;
 
     public Game(String title, int width, int height){
         this.width = width;
@@ -37,6 +39,7 @@ public class Game implements Runnable{
         Assets.init();
 
         gameState = new GameState();
+        menuState = new MenuState();
         State.setState(gameState);
     }
 
