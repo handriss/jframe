@@ -4,6 +4,7 @@ import display.Display;
 import gfx.Assets;
 import gfx.ImageLoader;
 import gfx.SpriteSheet;
+import input.KeyManager;
 import states.GameState;
 import states.MenuState;
 import states.State;
@@ -27,15 +28,19 @@ public class Game implements Runnable{
     private State gameState;
     private State menuState;
 
+    private KeyManager keyManager;
+
     public Game(String title, int width, int height){
         this.width = width;
         this.height = height;
         this.title = title;
+        keyManager = new KeyManager();
 
     }
 
     private void init(){
         display = new Display(title, width, height);
+        display.getFrame().addKeyListener(keyManager);
         Assets.init();
 
         gameState = new GameState(this);
@@ -45,6 +50,8 @@ public class Game implements Runnable{
 
 
     private void tick(){
+        keyManager.tick();
+
         if(State.getState() != null){
             State.getState().tick();
         }
@@ -73,7 +80,7 @@ public class Game implements Runnable{
     public void run(){
         init();
 
-        int fps = 60;
+        int fps = 30;
         double timePerTick = 1000000000 / fps;
         double delta = 0;
         long now;
@@ -102,6 +109,10 @@ public class Game implements Runnable{
         }
 
         stop();
+    }
+
+    public KeyManager getKeyManager(){
+        return keyManager;
     }
 
     public synchronized void start(){
